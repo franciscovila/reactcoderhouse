@@ -27,7 +27,7 @@ const styles = {
 
 },
     links: {
-        padding: 10,
+    padding: 10,
 }
 }
 
