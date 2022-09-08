@@ -6,17 +6,17 @@ const MiComponente = ({stock, onAdd}) => {
 
     
     const sumar = () => {
-    
-    if (contador < {stock}){
+    if (contador < stock){
         setContador(contador + 1)  
-        return "No hay stock"
     }
 }
 
 
     const restar = () => {
+        if (contador > 1){
         setContador(contador - 1);
     }
+}
     const agregarAlCarrito = () => {
         onAdd(contador);
     }

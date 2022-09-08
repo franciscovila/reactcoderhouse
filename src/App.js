@@ -1,7 +1,7 @@
 import React from 'react';
 import NavBar from './components/NavBar';
 import ItemListContainer from './components/ItemListContainer';
-import MiComponente from './components/MiComponente';
+import ItemCount from './components/ItemCount';
 
 
 
@@ -17,7 +17,7 @@ const App = () => {
     <>
     <NavBar />
     <ItemListContainer greeting='Bienvenidos' />
-    <MiComponente stock={10} onAdd={onAdd}  />
+    <ItemCount stock={10} onAdd={onAdd}  />
     </>
   )
 }
