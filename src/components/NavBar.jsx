@@ -1,36 +1,41 @@
 import React from "react";
+import {
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    Heading,
+    Grid,
+    VStack,
+    Container
+} from '@chakra-ui/react'
 import CartWidget from "./CartWidget";
 
 const NavBar = () => {
     return (
-        <>
-            <header style= {styles.container}>
-            <h1> Muebleria Giglio </h1>
-            <nav>
-                <a style={styles.links} href="">Donde encontrarnos</a>
-                <a style={styles.links} href="">Metodos de pago</a>
-                <a style={styles.links} href="">Mas info</a>
-                <CartWidget />
-            </nav>
-            </header>
-        </>    
+        <VStack >
+        <Grid>
+        <Container bg='lightgrey'>
+        <Heading>Vison Metal</Heading>
+    <Breadcrumb spacing='8px' separator='>' alignItems="space-between" >
+<BreadcrumbItem>
+        <BreadcrumbLink href='#'>Home</BreadcrumbLink>
+</BreadcrumbItem>
+
+    <BreadcrumbItem>
+    <BreadcrumbLink href='#'>Sobre Nosotros</BreadcrumbLink>
+</BreadcrumbItem>
+
+    <BreadcrumbItem isCurrentPage>
+    <BreadcrumbLink href='#'>Contacto</BreadcrumbLink>
+    </BreadcrumbItem>
+
+    <CartWidget />
+</Breadcrumb>
+</Container>
+</Grid>
+        </VStack>    
     )
 }
-
-const styles = {
-    container: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        backgroundColor: 'lightgray',
-
-
-},
-    links: {
-    padding: 10,
-}
-}
-
 
 
 export default NavBar;
