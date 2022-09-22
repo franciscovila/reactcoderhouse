@@ -1,55 +1,30 @@
 import React from "react";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { Button, CardActionArea, CardActions } from "@mui/material";
 
 export const Item = ({ product }) => {
 
     return (
-    <Card sx={{ maxWidth: 345 }} style={styles.container}>
-        <CardActionArea>
-        <CardMedia
-            component="img"
-            height="140"
-            image={product.image}
-            alt={product.title}
-        />
-        <CardContent>
-            <Typography
-            gutterBottom
-            variant="h5"
-            component="div"
-            style={styles.title}
-            >              {product.title}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-            ${product.price}
-            </Typography>
-        </CardContent>
-        </CardActionArea>
-        <CardActions>
-            <Button size="small" color="primary">
-            Ver Detalles
-            </Button>
-        </CardActions>
-    </Card>
-    );
+<div style={styles.container}>
+      <img style={styles.img} src={product.image} alt={product.title} />
+      <div style={styles.Infocontainer}>
+        <h1>{product.title}</h1>
+        <span>${product.price}</span>
+        <p>{product.description}</p>
+      </div>
+    </div>
+  );
 };
 
 const styles = {
-    container: {
-    width: window.innerHeight > 900 ? "25%" : "90%",
-    flexDirection: "column",
-    justifyContent: "center",
+  container: {
+    display: "flex",
+    flexDirection: "row",
     alignItems: "center",
-    margin: 20,
-    backgroundColor: "rgba(249, 220, 92, 0.3)"
-    },
-    title: {
-    textOverflow: "ellipsis",
-    overflow: "hidden",
-    height: 100,
-    }
+  },
+  Infocontainer:{
+    display: "flex",
+    flexDirection: "column",
+  },
+  img:{
+    maxWidth: "20%"
+  }
 };

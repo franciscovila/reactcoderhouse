@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import { Spinner } from '@chakra-ui/react';
+import ItemDetail from './ItemDetail';
 
-const ItemListContainer = ({ greeting }) => {
+const ItemDetailContainer = ({ greeting }) => {
 
-    const [producto, setProducto] = useState({})
+    const [product, setProduct] = useState({})
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -12,7 +13,7 @@ const ItemListContainer = ({ greeting }) => {
         try{
             const respuesta = await fetch('https://fakestoreapi.com/products/3')
             const data = await respuesta.json()
-            setProducto(data)
+            setProduct(data)
         }
         catch(err){
             console.log('un error', err)
@@ -31,11 +32,11 @@ return (
         {
             loading
             ? <Spinner/>
-            : <ItemDetail item={producto} />
+            : <ItemDetail producto={product} />
         }
     </>
 
 )
 }
 
-export default ItemListContainer
+export default ItemDetailContainer;
