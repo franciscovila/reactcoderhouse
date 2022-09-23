@@ -1,29 +1,29 @@
 import React from 'react';
-import { ChakraProvider } from '@chakra-ui/react'
 import NavBar from './components/NavBar';
 import ItemListContainer from './components/ItemListContainer';
 import ItemDetailContainer from './components/ItemDetailContainer';
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import CartWidget from './components/CartWidget';
 
 
 
 const App = () => {
 
-  const onAdd = (count) => {
-    console.log('Producto agregado al carrito')
-  }
-
-  onAdd()
+  const dash = "Bienvenidos";
 
   return (
     <>
-    <ChakraProvider>
-    <NavBar />
-    <ItemListContainer greeting='Bienvenidos' />
-    <ItemDetailContainer greeting='Bienvenidos' />
-    </ChakraProvider>
-    </>
-  )
-}
+    <BrowserRouter>
+      <NavBar name='Francisco'/>
+      <Routes>
+        <Route path='/' element={<ItemListContainer greeting={dash} />}/>
+        <Route path='/category/:IDCategoria' element={<ItemListContainer greeting={dash} />}/>
+        <Route path='/product/:IDProducto' element={ <ItemDetailContainer />}/>
+        <Route path='/cart' element={<CartWidget />}/>
+      </Routes>
+    </BrowserRouter>
+  </>
+);
+};
 
 export default App;
