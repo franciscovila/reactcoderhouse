@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
+import {Link} from 'react-router-dom'
+import { Button } from "@mui/material";
 
-const MiComponente = ({stock, onAdd}) => {
+const ItemCount = ({stock, onAdd}) => {
 
     const [contador, setContador] = useState(1);
 
@@ -21,14 +23,25 @@ const MiComponente = ({stock, onAdd}) => {
         onAdd(contador);
     }
 
+    const finalizarCompra = () => {
+
+    }
+    
+
 return (
     <>
     <div>Mi Componente</div>
     <h1>{contador}</h1>
-    <button onClick={sumar}>Sumar</button>
-    <button onClick={restar}>Restar</button>
-    <button onClick={agregarAlCarrito}>Agregar al carrito</button>
+    <Button onClick={sumar}>Sumar</Button>
+    <Button onClick={restar}>Restar</Button>
+    <Button onClick={agregarAlCarrito}>Agregar al carrito</Button>
+    <Link to={`/cart`}>
+        <Button size="small" color="primary">
+            Finalizar compra
+        </Button>
+        </Link>
+
     </>
 )
 }
-export default MiComponente
+export default ItemCount
