@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { Spinner } from '@chakra-ui/react';
-import ItemDetail  from "./ItemDetail";
+import {ItemDetail}  from "./ItemDetail";
 import { API } from "./API";
 import { useParams } from "react-router-dom";
 
