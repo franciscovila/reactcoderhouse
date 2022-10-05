@@ -3,10 +3,11 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Context } from './CartContext';
 
 const CartWidget = () => {
-  const {cantidad} = useContext(Context)
+  const Contexto = useContext(Context)
+
   return (
     <div>
-      {cantidad}
+    {Contexto.cart.lenght}
       <ShoppingCartIcon color="success" fontSize="large" />
     </div>
   )

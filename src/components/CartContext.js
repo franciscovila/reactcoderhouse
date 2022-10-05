@@ -1,56 +1,47 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState } from "react";
 
 export const Context = createContext();
 
-
 const CustomProvider = ({ children }) => {
-const [cart, setCart] = useState([]);
-const [cantidad, setCantidad] = useState(0);
+  const [cart, setCart] = useState([]);
 
-useEffect(() => {
-let cantidad = 0;
-cart.forEach((producto)=>
-    cantidad = cantidad + producto.qty
-)
-setCantidad(cantidad);
-}, [cart])
+  console.log(cart?.length)
 
 
-const añadir = (producto, cantidad) => {
-if (estaEnLista(producto.id)) {
-    
-} else {
-    setCart([...cart, { producto, cantidad }]);
-}
-};
+  const añadir = (producto, cantidad) => {
+    if (estaEnLista(producto.id)) {
+    } else {
+      setCart([...cart, { producto, cantidad }]);
 
-const borrar = (id) => {
-const arrayFiltrado = cart.filter((producto) => {
-    return producto.id !== id;
-});
-setCart(arrayFiltrado);
-};
+    }
+  };
 
-const estaEnLista = (id) => cart.some((producto) => producto.id === id);
+  const borrar = (id) => {
+    const arrayFiltrado = cart.filter((producto) => {
+      return producto.id !== id;
+    });
+    setCart(arrayFiltrado);
 
-const reset = () => {
-setCart([]);
-};
+  };
 
+  const estaEnLista = (id) => cart.some((producto) => producto.id === id);
 
-return (
-<Context.Provider
-    value={{
-    cantidad,
-    cart,
-    añadir,
-    borrar,
-    reset,
-    }}
->
-    {children}
-</Context.Provider>
-);
+  const reset = () => {
+    setCart([]);
+  };
+
+  return (
+    <Context.Provider
+      value={{
+        cart,
+        añadir,
+        borrar,
+        reset,
+      }}
+    >
+      {children}
+    </Context.Provider>
+  );
 };
 
 export default CustomProvider;

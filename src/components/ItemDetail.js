@@ -10,6 +10,7 @@ export const ItemDetail = ({ producto }) => {
   const onAdd = (count) => {
     setIsButtonpPressed(true);
     añadir(producto,count);
+
   };
 
 
