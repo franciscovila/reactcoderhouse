@@ -18,7 +18,7 @@ setCantidad(cantidad);
 
 const añadir = (producto, cantidad) => {
 if (estaEnLista(producto.id)) {
-    //se los dejo
+    
 } else {
     setCart([...cart, { producto, cantidad }]);
 }

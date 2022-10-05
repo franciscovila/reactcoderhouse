@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import ItemCount from './ItemCount';
 import { Link } from "react-router-dom";
-import { Context} from './CustomContext'
+import { Context} from './CartContext';
 
 export const ItemDetail = ({ producto }) => {
   const [isButtonpPressed, setIsButtonpPressed] = useState(false);
@@ -44,6 +44,6 @@ const styles = {
     flexDirection: "column",
   },
   img: {
-    maxWidth: "20%",
+    maxWidth: "100px",
   },
 };
