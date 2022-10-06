@@ -5,11 +5,11 @@ import { Context} from './CartContext';
 
 export const ItemDetail = ({ producto }) => {
   const [isButtonpPressed, setIsButtonpPressed] = useState(false);
-  const { añadir } = useContext(Context);
+  const { addProduct } = useContext(Context);
 
   const onAdd = (count) => {
     setIsButtonpPressed(true);
-    añadir(producto,count);
+    addProduct(producto,count);
 
   };
 
