@@ -1,10 +1,36 @@
 import React, { useContext } from "react";
 import { Context } from "./CartContext";
 import { Link } from "react-router-dom";
+import { db } from "../firebase/firebase";
+import { collection, addDoc, serverTimestamp, doc, updateDoc } from "firebase/firestore";
 
 const Cart = () => {
   const { cart, total, deleteProduct, resetCart } = useContext(Context);
-  console.log(cart);
+
+  const comprador = {
+    nombre: "Juan",
+    apellido: "Perez",
+    email:"juanperez@gmail.com"
+  };
+
+  const finalizarCompra = ()=>{
+    const ventasCollection = collection(db,"ventas");
+    addDoc(ventasCollection, {
+      comprador,
+      items: cart,
+      date: serverTimestamp(),
+      total,
+    })
+    .then(result=>{
+      console.log(result.id);
+      resetCart();
+    })
+  }
+
+  const actualizarStock = () =>{
+    const updateStock = doc(db, "products", "yLrPBkw5n4hQV48Ixynn");
+    updateDoc(updateStock,{stock:50});
+  }
 
   return (
     <>
@@ -17,9 +43,9 @@ const Cart = () => {
           {cart.map((item) => (
             <div key={item.product.id}>
               <h1>{item.product.title}</h1>
+              <img src={item.product.image} width="100px"></img>
               <h1>Precio Unitario: {item.product.price}</h1>
               <h1>Cantidad: {item.qtyProduct}</h1>
-              <img src={item.product.image} width="200px" ></img>
               <button
                 onClick={() => {
                   deleteProduct(item.product.id);
@@ -31,6 +57,7 @@ const Cart = () => {
           ))}
           <h3>Total: {total.toFixed(2)}</h3>
           <button onClick={resetCart}>Vaciar Carrito</button>
+          <button onClick={actualizarStock}>Finalizar Compra</button>
         </>
       )}
     </>

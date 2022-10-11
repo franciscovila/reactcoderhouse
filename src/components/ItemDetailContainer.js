@@ -1,43 +1,45 @@
-import React, {useState, useEffect} from 'react';
-import { Spinner } from '@chakra-ui/react';
-import {ItemDetail}  from "./ItemDetail";
-import { API } from "./API";
+import React, { useState, useEffect } from "react";
+import { CircularProgress } from "@mui/material";
+import { ItemDetail } from "./ItemDetail";
 import { useParams } from "react-router-dom";
+import { db } from "../firebase/firebase";
+import { doc, getDoc, collection } from "firebase/firestore";
 
 const ItemDetailContainer = () => {
+  const { id } = useParams();
+  const [product, setProduct] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-const { id } = useParams();
-const [product, setProduct] = useState({});
-const [loading, setLoading] = useState(true);
-const [error, setError] = useState(false);
-
-useEffect(() => {
-    const url = `${API.PRODUCTO}${id}`;
-    const getItem = async () => {
-    try {
-        const resp = await fetch(url);
-        const data = await resp.json();
-        setProduct({...data, stock: Math.floor(Math.random() * 20)});
-    } catch (error) {
-        console.error(error);
+  useEffect(() => {
+    const productCollection = collection(db, "products");
+    const refDoc = doc(productCollection, id);
+    getDoc(refDoc)
+      .then((result) => {
+        setProduct({
+          id: result.id,
+          ...result.data(),
+        });
+      })
+      .catch(() => {
         setError(true);
-    } finally {
+      })
+      .finally(() => {
         setLoading(false);
-    }
-    };
-    getItem();
-}, [id]);
+      });
+  }, [id]);
 
-return (
+  return (
     <>
-        {
-            loading
-            ? <Spinner/>
-            : <ItemDetail producto={product} />
-        }
+      {loading ? (
+        <CircularProgress />
+      ) : error ? (
+        <h1>Ocurrio un error</h1>
+      ) : (
+        <ItemDetail product={product} />
+      )}
     </>
-
-)
-}
+  );
+};
 
 export default ItemDetailContainer;

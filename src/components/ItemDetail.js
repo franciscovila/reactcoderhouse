@@ -1,26 +1,24 @@
 import React, { useState, useContext } from "react";
-import ItemCount from './ItemCount';
+import ItemCount from "./ItemCount";
 import { Link } from "react-router-dom";
-import { Context} from './CartContext';
+import { Context } from "./CartContext";
 
-export const ItemDetail = ({ producto }) => {
+export const ItemDetail = ({ product }) => {
   const [isButtonpPressed, setIsButtonpPressed] = useState(false);
   const { addProduct } = useContext(Context);
 
   const onAdd = (count) => {
     setIsButtonpPressed(true);
-    addProduct(producto,count);
-
+    addProduct(product, count);
   };
-
 
   return (
     <div style={styles.container}>
-      <img style={styles.img} src={producto.image} alt={producto.title} />
+      <img style={styles.img} src={product.image} alt={product.title} />
       <div style={styles.Infocontainer}>
-        <h1>{producto.title}</h1>
-        <span>${producto.price}</span>
-        <p>{producto.description}</p>
+        <h1>{product.title}</h1>
+        <span>${product.price}</span>
+        <p>{product.description}</p>
 
         {!isButtonpPressed ? (
           <ItemCount initial={1} stock={5} onAdd={onAdd} />
@@ -45,6 +43,6 @@ const styles = {
     flexDirection: "column",
   },
   img: {
-    maxWidth: "100px",
+    maxWidth: "20%",
   },
 };

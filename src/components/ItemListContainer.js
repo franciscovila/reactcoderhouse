@@ -1,46 +1,58 @@
 import React from "react";
-import { Spinner} from "@chakra-ui/react";
-import {ItemList} from "./ItemList"
-import { useState, useEffect} from "react";
+import { ItemList } from "./ItemList";
+import { useState, useEffect } from "react";
+import { CircularProgress } from "@mui/material";
 import { useParams } from "react-router-dom";
-import {API} from './API';
+import { db } from "../firebase/firebase";
+import { getDocs, collection, query, where } from "firebase/firestore";
 
 
 const ItemListContainer = ({ greeting }) => {
+  const { id } = useParams();
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-    const { id } = useParams();
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
+  useEffect(() => {
+    const productsCollection = collection(db, "products");
+    const q = query(productsCollection, where("category", "==", "jewelery"));
 
-    useEffect(() => {
-    const url = id ? `${API.CATEGORY}${id}` : API.LIST;
-    const getItems = async () => {
-        try {
-        const respuesta = await fetch(url);
-        const data = await respuesta.json();
-        setProducts(data);
-        } catch (err) {
-        console.error(err);
+    getDocs(productsCollection)
+      .then((data) => {
+        const lista = data.docs.map((product) => {
+          return {
+            ...product.data(),
+            id: product.id,
+          };
+        });
+        setProducts(lista);
+      })
+      .catch(() => {
         setError(true);
-        } finally {
+      })
+      .finally(() => {
         setLoading(false);
-        }
-    };
-    getItems();
-    }, [id]);
+      });
+  }, [id]);
 
+  return (
+    <>
+      <h1 style={styles.dash}>{greeting}</h1>
+      {loading ? (
+        <CircularProgress />
+      ) : error ? (
+        <h1>Ocurrio un error</h1>
+      ) : (
+        <ItemList products={products} />
+      )}
+    </>
+  );
+};
 
-    return (
-        <>
-        {
-            loading
-            ? <Spinner />
-            : <ItemList products={products} />
-        }
-    
-        </>
-    )
-    }
+const styles = {
+  dash: {
+    textAlign: "center",
+  },
+};
 
-export default ItemListContainer
+export default ItemListContainer;
